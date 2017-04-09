@@ -5,4 +5,6 @@ Route::group(["prefix" => "meals"], function() {
     Route::get("/random", "MealsController@random");
 
     Route::post("/", "MealsController@store");
+
+    Route::get("/{id}", "MealsController@show");
 });

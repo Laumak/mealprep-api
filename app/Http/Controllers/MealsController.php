@@ -38,7 +38,7 @@ class MealsController extends Controller
         ]);
 
         return response()->json([
-            "data" => $meal
+            "meal" => $meal
         ], 201);
     }
 
@@ -50,7 +50,11 @@ class MealsController extends Controller
      */
     public function show($id)
     {
-        //
+        $meal = Meal::whereId($id)->first();
+
+        return response()->json([
+            "meal" => $meal,
+        ], 200);
     }
 
     /**
