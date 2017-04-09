@@ -15,12 +15,12 @@ class MealsController extends Controller
      */
     public function index()
     {
-        $meals = Meal::with("headerImage")->with("images")->get();
+        $meals = Meal::with("headerImage")
+                     ->with("images")
+                     ->paginate(10);
 
         return response()->json([
-            "data" => [
-                "meals" => $meals
-            ]
+            "meals" => $meals
         ], 200);
     }
 
@@ -34,6 +34,7 @@ class MealsController extends Controller
     {
         $meal = Meal::create([
             "title"       => $request["title"],
+            "url"         => $request["url"],
             "description" => $request["description"],
         ]);
 
@@ -50,7 +51,7 @@ class MealsController extends Controller
      */
     public function show($id)
     {
-        $meal = Meal::whereId($id)->first();
+        $meal = Meal::whereId($id)->with("headerImage")->with("images")->first();
 
         return response()->json([
             "meal" => $meal,
@@ -81,7 +82,7 @@ class MealsController extends Controller
     }
 
     public function random() {
-        $randomMeal = Meal::inRandomOrder()->first();
+        $randomMeal = Meal::inRandomOrder()->with("headerImage")->with("images")->first();
 
         return response()->json([
             "meal" => $randomMeal,
