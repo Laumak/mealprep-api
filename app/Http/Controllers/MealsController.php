@@ -3,16 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use App\Meal;
 
 class MealsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $meals = Meal::with("headerImage")
@@ -24,19 +20,20 @@ class MealsController extends Controller
         ], 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
+        $path = null;
+
+        if($request->hasFile("headerImage")) {
+            $path = $request->file("headerImage")->store("headerImages");
+        }
+
         $meal = Meal::create([
             "title"       => $request["title"],
             "url"         => $request["url"],
             "description" => $request["description"],
             "type"        => $request["type"],
+            "header_url"  => $path
         ]);
 
         return response()->json([
@@ -44,51 +41,22 @@ class MealsController extends Controller
         ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        $meal = Meal::whereId($id)->with("headerImage")->with("images")->first();
+        $meal = Meal::whereId($id)->with("headerImage", "images")->first();
 
         return response()->json([
             "meal" => $meal,
         ], 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
     public function random(Request $request) {
         $type = $request["mealType"];
 
         if($type !== null) {
-            $randomMeal = Meal::inRandomOrder()->whereType($type)->with("headerImage")->with("images")->first();
+            $randomMeal = Meal::inRandomOrder()->whereType($type)->with("headerImage", "images")->first();
         } else {
-            $randomMeal = Meal::inRandomOrder()->with("headerImage")->with("images")->first();
+            $randomMeal = Meal::inRandomOrder()->with("headerImage", "images")->first();
         }
 
         return response()->json([
