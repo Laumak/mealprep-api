@@ -36,6 +36,7 @@ class MealsController extends Controller
             "title"       => $request["title"],
             "url"         => $request["url"],
             "description" => $request["description"],
+            "type"        => $request["type"],
         ]);
 
         return response()->json([
@@ -81,7 +82,7 @@ class MealsController extends Controller
         //
     }
 
-    public function random() {
+    public function random(Request $request) {
         $randomMeal = Meal::inRandomOrder()->with("headerImage")->with("images")->first();
 
         return response()->json([

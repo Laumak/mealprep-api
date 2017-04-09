@@ -18,6 +18,7 @@ class CreateMealsTable extends Migration
             $table->string("title");
             $table->text("description")->nullable();
             $table->string("url")->nullable();
+            $table->string("type")->nullable();
             $table->timestamps();
         });
     }

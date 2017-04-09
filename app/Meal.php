@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Meal extends Model
 {
     protected $fillable = [
-        "title", "description", "url",
+        "title", "description", "url", "type",
     ];
 
     public function headerImage() {
