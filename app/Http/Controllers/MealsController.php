@@ -68,7 +68,18 @@ class MealsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $meal = Meal::whereId($id)->update([
+            "title"       => $request["meal"]["title"],
+            "type"        => $request["meal"]["type"],
+            "url"         => $request["meal"]["url"],
+            "description" => $request["meal"]["description"],
+        ]);
+
+        $updatedMeal = Meal::whereId($id)->first();
+
+        return response()->json([
+            "meal" => $updatedMeal,
+        ], 200);
     }
 
     /**
