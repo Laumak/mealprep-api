@@ -17,4 +17,8 @@ class Meal extends Model
     public function images() {
         return $this->hasMany(Image::class);
     }
+
+    public function days() {
+        return $this->belongsToMany(Day::class);
+    }
 }
