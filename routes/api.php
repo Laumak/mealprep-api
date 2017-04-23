@@ -7,6 +7,7 @@ Route::group(["prefix" => "meals"], function() {
     Route::post("/", "MealsController@store");
     Route::get("/{id}", "MealsController@show");
     Route::put("/{id}", "MealsController@update");
+    Route::delete("/{id}", "MealsController@destroy");
 });
 
 Route::get("/week", "WeeksController@current");

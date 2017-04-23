@@ -86,12 +86,16 @@ class MealsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $meal = Meal::whereId($id)->first();
+        $meal->days()->detach();
+        $meal->delete();
+
+        return response(204);
     }
 
     public function random(Request $request) {
