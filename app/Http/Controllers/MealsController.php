@@ -15,7 +15,8 @@ class MealsController extends Controller
      */
     public function index()
     {
-        $meals = Meal::with("headerImage")
+        $meals = Meal::latest("updated_at")
+                     ->with("headerImage")
                      ->with("images")
                      ->paginate(10);
 
