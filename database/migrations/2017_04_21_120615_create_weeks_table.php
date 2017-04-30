@@ -19,6 +19,8 @@ class CreateWeeksTable extends Migration
             $table->unsignedSmallInteger('year');
 
             $table->timestamps();
+
+            $table->unique([ 'number', 'year' ]);
         });
     }
 

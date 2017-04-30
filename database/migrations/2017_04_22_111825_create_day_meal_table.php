@@ -18,11 +18,13 @@ class CreateDayMealTable extends Migration
 
             $table->unsignedInteger('day_id');
             $table->foreign('day_id')
-                  ->references('id')->on('days');
+                  ->references('id')->on('days')
+                  ->onDelete('cascade');
 
             $table->unsignedInteger('meal_id');
             $table->foreign('meal_id')
-                  ->references('id')->on('meals');
+                  ->references('id')->on('meals')
+                  ->onDelete('cascade');
 
             $table->primary([ 'type', 'day_id' ]);
         });

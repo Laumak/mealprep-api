@@ -11,5 +11,6 @@ Route::group(["prefix" => "meals"], function() {
 });
 
 Route::get("/week", "WeeksController@current");
+Route::get("/week/{number}/{year}", "WeeksController@show");
 
 Route::put("/dailyMeal/{id}", "DailyMealsController@update");
