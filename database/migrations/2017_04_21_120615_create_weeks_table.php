@@ -17,8 +17,13 @@ class CreateWeeksTable extends Migration
             $table->increments('id');
             $table->unsignedSmallInteger('number');
             $table->unsignedSmallInteger('year');
+            $table->unsignedInteger('user_id');
 
             $table->timestamps();
+
+            $table->foreign('user_id')
+                  ->references('id')->on('users')
+                  ->onDelete('cascade');
 
             $table->unique([ 'number', 'year' ]);
         });
