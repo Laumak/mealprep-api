@@ -92,8 +92,7 @@ class AuthController extends Controller
         ], 200);
     }
 
-    public function checkAuthStatus()
-    {
+    public function checkAuthStatus() {
         $user = JWTAuth::parseToken()->authenticate();
         try {
             if(!$user) {
