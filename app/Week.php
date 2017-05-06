@@ -12,6 +12,10 @@ class Week extends Model
         return $this->hasMany(Day::class);
     }
 
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
     public function createDays() {
         $weekDays = array(
             "monday", "tuesday", "wednesday",

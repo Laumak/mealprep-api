@@ -4,14 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use JWTAuth;
 use Carbon\Carbon;
 
+use App\User;
 use App\Week;
 
 class WeeksController extends Controller
 {
     public function store($week, $year) {
-        $week = Week::create([
+        $user = JWTAuth::parseToken()->authenticate();
+
+        $week = $user->weeks()->create([
             "number" => $week,
             "year" => $year
         ]);
@@ -74,11 +78,13 @@ class WeeksController extends Controller
     }
 
     private function createAdjacentWeeks($week, $currentYear) {
+        $user = JWTAuth::parseToken()->authenticate();
+
         $prevWeek = Week::whereNumber($week->number - 1)->first();
         $nextWeek = Week::whereNumber($week->number + 1)->first();
 
         if(!$prevWeek) {
-            $prevWeek = Week::create([
+            $prevWeek = $user->weeks()->create([
                 "number" => $week->number - 1,
                 "year" => $currentYear
             ]);
@@ -87,7 +93,7 @@ class WeeksController extends Controller
         }
 
         if(!$nextWeek) {
-            $nextWeek = Week::create([
+            $nextWeek = $user->weeks()->create([
                 "number" => $week->number + 1,
                 "year" => $currentYear
             ]);
