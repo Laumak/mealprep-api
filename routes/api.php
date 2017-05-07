@@ -4,6 +4,7 @@ Route::post("/register",     "AuthController@register");
 Route::post("/authenticate", "AuthController@authenticate");
 
 Route::get("/meals",                 "MealsController@index");
+Route::get("/meals/all",             "MealsController@all");
 Route::get("/meals/random/{type?}",  "MealsController@random");
 Route::get("/meals/{id}",            "MealsController@show");
 

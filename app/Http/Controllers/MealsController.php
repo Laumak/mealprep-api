@@ -25,6 +25,17 @@ class MealsController extends Controller
         ], 200);
     }
 
+    public function all() {
+        $meals = Meal::latest("updated_at")
+                     ->with("headerImage")
+                     ->with("images")
+                     ->get();
+
+        return response()->json([
+            "meals" => $meals
+        ], 200);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
