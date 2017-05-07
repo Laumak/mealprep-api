@@ -30,4 +30,16 @@ class DailyMealsController extends Controller
             "day" => $updatedDay
         ], 200);
     }
+
+    public function dissoc($id, $type) {
+        $day = Day::whereId($id)->first();
+
+        $day->$type()->detach();
+
+        $week = $day->week()->first();
+
+        return response()->json([
+            "week" => $week,
+        ], 200);
+    }
 }
