@@ -98,9 +98,7 @@ class MealsController extends Controller
         return response(204);
     }
 
-    public function random(Request $request) {
-        $type = $request["mealType"];
-
+    public function random($type = null) {
         if($type !== null) {
             $randomMeal = Meal::inRandomOrder()->whereType($type)->with("headerImage")->with("images")->first();
         } else {
