@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Day extends Model
 {
     protected $guarded = [];
+    protected $dates = [ "date" ];
 
     public function week() {
         return $this->belongsTo(Week::class);
@@ -18,9 +19,5 @@ class Day extends Model
 
     public function dinner() {
         return $this->belongsToMany(Meal::class)->wherePivot('type', 'dinner');
-    }
-
-    public function getNameAttribute($value) {
-        return ucfirst($value);
     }
 }

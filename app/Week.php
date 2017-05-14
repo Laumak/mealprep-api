@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Carbon\Carbon;
+
 class Week extends Model
 {
     protected $guarded = [];
@@ -17,13 +19,41 @@ class Week extends Model
     }
 
     public function createDays() {
-        $weekDays = array(
-            "monday", "tuesday", "wednesday",
-            "thursday", "friday", "saturday", "sunday"
+        $days = array(
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday",
+            "saturday",
+            "sunday",
         );
 
-        foreach($weekDays as $day) {
-            $this->days()->create([ "name" => $day ]);
+        foreach($days as $index => $day) {
+            $dt = $this->firstDayOfWeek()->addDays($index);
+
+            $this->days()->create([
+                "date" => $dt->toDateTimeString(),
+            ]);
         }
+    }
+
+    private function firstDayOfWeek() {
+        $now = Carbon::now();
+
+        $currentWeekNumber = $now->weekOfYear;
+        $weekNumber        = $this->number;
+
+        $firstDayOfWeek;
+
+        if($currentWeekNumber > $weekNumber) {
+            $firstDayOfWeek = $now->subWeeks($currentWeekNumber - $weekNumber)->startOfWeek();
+        } else if($currentWeekNumber < $weekNumber) {
+            $firstDayOfWeek = $now->addWeeks($weekNumber - $currentWeekNumber)->startOfWeek();
+        } else {
+            $firstDayOfWeek = $now->startOfWeek();
+        }
+
+        return $firstDayOfWeek;
     }
 }
