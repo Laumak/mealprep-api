@@ -1,5 +1,6 @@
 <?php
 
+use App\Meal;
 use App\User;
 use App\Week;
 
@@ -31,5 +32,15 @@ $factory->define(Week::class, function (Faker\Generator $faker) {
         'number'  => $faker->numberBetween($min = 1, $max = 52),
         'year'    => $faker->numberBetween($min = 2015, $max = 2017),
         'user_id' => factory(User::class)->create()->id,
+    ];
+});
+
+$factory->define(Meal::class, function (Faker\Generator $faker) {
+    // title, description, url, type
+    return [
+        'title'       => $faker->sentence,
+        'description' => $faker->paragraph,
+        'url'         => $faker->url,
+        'type'        => $faker->randomElement($array = [ "home", "out" ]),
     ];
 });
