@@ -106,7 +106,9 @@ class MealsController extends Controller
         $meal->days()->detach();
         $meal->delete();
 
-        return response(204);
+        return response()->json([
+            "deletedMeal" => $meal->id,
+        ], 200);
     }
 
     public function random($type = null) {
