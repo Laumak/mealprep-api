@@ -14,7 +14,7 @@ class WeekTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function test_weeks_can_be_created()
+    public function test_user_can_create_weeks()
     {
         $week = factory(Week::class)->create([]);
         $user = factory(User::class)->create([]);
@@ -28,7 +28,7 @@ class WeekTest extends TestCase
         ]);
     }
 
-    public function test_week_has_7_week_days_created()
+    public function test_created_week_has_7_week_days()
     {
         $week = factory(Week::class)->create([]);
 
