@@ -1,5 +1,8 @@
 <?php
 
+use App\User;
+use App\Week;
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -12,7 +15,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
@@ -20,5 +23,13 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+    ];
+});
+
+$factory->define(Week::class, function (Faker\Generator $faker) {
+    return [
+        'number'  => $faker->numberBetween($min = 1, $max = 52),
+        'year'    => $faker->numberBetween($min = 2015, $max = 2017),
+        'user_id' => factory(User::class)->create()->id,
     ];
 });
