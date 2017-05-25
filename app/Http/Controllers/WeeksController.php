@@ -20,8 +20,6 @@ class WeeksController extends Controller
             "year" => $year
         ]);
 
-        $week->createDays();
-
         return $week;
     }
 
@@ -88,8 +86,6 @@ class WeeksController extends Controller
                 "number" => $week->number - 1,
                 "year" => $currentYear
             ]);
-
-            $prevWeek->createDays();
         }
 
         if(!$nextWeek) {
@@ -97,8 +93,6 @@ class WeeksController extends Controller
                 "number" => $week->number + 1,
                 "year" => $currentYear
             ]);
-
-            $nextWeek->createDays();
         }
     }
 }

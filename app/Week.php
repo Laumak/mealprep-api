@@ -10,6 +10,15 @@ class Week extends Model
 {
     protected $guarded = [];
 
+    protected static function boot() {
+        parent::boot();
+
+        // When a week is created, also create the associated days.
+        static::created(function($week) {
+            $week->createDays();
+        });
+    }
+
     public function days() {
         return $this->hasMany(Day::class);
     }
@@ -18,7 +27,7 @@ class Week extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function createDays() {
+    private function createDays() {
         $days = array(
             "monday",
             "tuesday",
