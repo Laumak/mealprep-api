@@ -27,4 +27,13 @@ class WeekTest extends TestCase
             "user_id" => $user->id,
         ]);
     }
+
+    public function test_week_has_7_week_days_created()
+    {
+        $week = factory(Week::class)->create([]);
+
+        $days = $week->days()->get();
+
+        $this->assertCount(7, $days);
+    }
 }
