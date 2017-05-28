@@ -17,7 +17,6 @@ class MealsController extends Controller
     {
         $meals = Meal::latest("updated_at")
                      ->with("headerImage")
-                     ->with("images")
                      ->paginate(10);
 
         return response()->json([
@@ -28,7 +27,6 @@ class MealsController extends Controller
     public function all() {
         $meals = Meal::latest("updated_at")
                      ->with("headerImage")
-                     ->with("images")
                      ->get();
 
         return response()->json([
@@ -64,7 +62,7 @@ class MealsController extends Controller
      */
     public function show($id)
     {
-        $meal = Meal::whereId($id)->with("headerImage")->with("images")->first();
+        $meal = Meal::whereId($id)->with("headerImage")->first();
 
         return response()->json([
             "meal" => $meal,
@@ -113,9 +111,9 @@ class MealsController extends Controller
 
     public function random($type = null) {
         if($type !== null) {
-            $randomMeal = Meal::inRandomOrder()->whereType($type)->with("headerImage")->with("images")->first();
+            $randomMeal = Meal::inRandomOrder()->whereType($type)->with("headerImage")->first();
         } else {
-            $randomMeal = Meal::inRandomOrder()->with("headerImage")->with("images")->first();
+            $randomMeal = Meal::inRandomOrder()->with("headerImage")->first();
         }
 
         return response()->json([

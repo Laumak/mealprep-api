@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Storage;
 
 class Image extends Model
 {
@@ -12,5 +13,9 @@ class Image extends Model
 
     public function meal() {
         return $this->belongsTo(Meal::class);
+    }
+
+    public function getUrlAttribute($value) {
+        return Storage::disk("s3")->url($value);
     }
 }

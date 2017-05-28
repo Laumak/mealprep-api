@@ -20,4 +20,6 @@ Route::group(["middleware" => "jwt.auth"], function() {
 
     Route::post("/meals/{id}/{type}", "DailyMealsController@dissoc");
     Route::put("/dailyMeal/{id}",     "DailyMealsController@update");
+
+    Route::post("/files/{id}", "FileUploadController@store");
 });
