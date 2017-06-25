@@ -13,18 +13,17 @@ node {
         echo '-- Dependencies installed -- '
     }
 
-    // stage('Test') {
-    //     echo '-- Testing the application -- '
-    //     sh 'yarn'
+    stage('Test') {
+        echo '-- Testing the application -- '
 
-    //     try {
-    //       sh 'npm run test'
-    //       echo '-- Tests passed -- '
-    //     } catch(e) {
-    //       echo '-- Tests failed -- '
-    //       echo "Reason: ${e}"
-    //     }
-    // }
+        try {
+          sh 'phpunit'
+          echo '-- Tests passed -- '
+        } catch(e) {
+          echo '-- Tests failed -- '
+          echo "Reason: ${e}"
+        }
+    }
 
     // stage('Deploy') {
     //     echo '-- Deploying the application --'
