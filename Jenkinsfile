@@ -17,7 +17,7 @@ node {
         echo '-- Testing the application -- '
 
         try {
-          sh 'phpunit'
+          sh 'vendor/bin/phpunit'
           echo '-- Tests passed -- '
         } catch(e) {
           echo '-- Tests failed -- '
