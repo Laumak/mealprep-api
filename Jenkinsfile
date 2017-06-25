@@ -31,7 +31,7 @@ node {
             credentials: ['47f7eb21-7cb6-45a1-a348-8d8e10817dc0'],
             ignoreMissing: true
         ) {
-            sh "ssh ${remote} cd ${FOLDER} && git pull"
+            sh "ssh ${remote} && cd ${FOLDER} && pwd && git pull origin master"
         }
     }
 
