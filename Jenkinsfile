@@ -14,10 +14,14 @@ node {
     }
 
     stage('Test') {
+        sh 'cp .env.testing .env'
+        sh 'php artisan key:generate'
+
         echo '-- Testing the application -- '
 
         try {
-          sh 'vendor/bin/phpunit'
+          sh 'vendor/bin/phpunit --log-junit test-results.xml'
+          junit allowEmptyResults: true, testResults: 'test-results.xml'
           echo '-- Tests passed -- '
         } catch(e) {
           echo '-- Tests failed -- '
